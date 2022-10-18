@@ -15,22 +15,24 @@ interface NewTransactionModalProps {
 export function NewTransactionModal({isOpen, onRequestClose,}: NewTransactionModalProps)
 {
   
-  const transactions = useContext(TransactionContext)
+  const {createTransactions} = useContext(TransactionContext)
   const [title, setTitle] = useState('')
-  const [value, setValue] = useState(0)
+  const [amount, setAmount] = useState(0)
   const [category, setCategory] = useState('')
   const [type, setType] = useState('deposit')
 
-  function handleCreateNewTransaction(event: FormEvent){
-    event.preventDefault();
-    const data = {
-      title,
-      value,
-      type,
-      category
-    }
+  async function handleCreateNewTransaction(event: FormEvent){
 
-    api.post('/transactions', data)
+    event.preventDefault();
+
+    await createTransactions({
+      title: title,
+      amount: amount,
+      type: type,
+      category: category
+    })
+
+    onRequestClose()
   }
 
   return (
@@ -48,7 +50,7 @@ export function NewTransactionModal({isOpen, onRequestClose,}: NewTransactionMod
 
         <input type="text" placeholder="Titulo" onChange={(event) => setTitle(event.target.value)}/>
 
-        <input type="text" placeholder="Valor"  onChange={(event) => setValue(Number(event.target.value))}/>
+        <input type="text" placeholder="Valor"  onChange={(event) => setAmount(Number(event.target.value))}/>
 
         <TransactionTypeContainer>
           <RadioBox type="button" onClick={() => setType("deposit")} isActive={type === 'deposit'} activeColor="green">
