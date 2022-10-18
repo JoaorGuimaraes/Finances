@@ -45,7 +45,7 @@ export function Sumary() {
       </div>
       <div>
         <header>
-          <p>Entradas</p>
+          <p>Saídas</p>
           <img src={outcomeImg} alt="" />
         </header>
         <strong>- 
@@ -59,7 +59,7 @@ export function Sumary() {
       </div>
       <div className="highlight-container">
         <header>
-          <p>Entradas</p>
+          <p>Total</p>
           <img src={totalImg} alt="" />
         </header>
         <strong>
